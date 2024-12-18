@@ -9,10 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-
-#[Route('/link')]
-final class LinkController extends AbstractController{
+use Symfony\Component\Routing\Attribute\Route;final class LinkController extends AbstractController{
     #[Route(name: 'app_link_index', methods: ['GET'])]
     public function index(LinkRepository $linkRepository): Response
     {
