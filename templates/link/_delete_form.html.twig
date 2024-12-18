@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_link_delete', {'id': link.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce lien ?');">
+    <input
+ type="hidden" name="_token" value="{{ csrf_token('delete' ~ link.id) }}">
+    <button class="btn">supprimer</button>
+</form>
