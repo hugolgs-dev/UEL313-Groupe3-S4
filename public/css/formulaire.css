@@ -1,4 +1,4 @@
-/* General styles for the form */
+
 form {
     max-width: 600px;
     margin: 0 auto;
@@ -19,7 +19,6 @@ label {
     font-weight: bold;
 }
 
-/* Style for the input fields and text areas */
 input.form-control,
 textarea.form-control {
     margin-bottom: 15px;
@@ -28,14 +27,12 @@ textarea.form-control {
     border: 1px solid #ccc;
 }
 
-/* Focus effect on input fields */
 input.form-control:focus,
 textarea.form-control:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.5);
 }
 
-/* Style for the submit button */
 button.btn {
     width: 100%;
     padding: 10px;
@@ -50,8 +47,6 @@ button.btn {
 button.btn:hover {
     background-color: #0056b3;
 }
-
-/* Style for the back link */
 a {
     display: inline-block;
     margin-top: 20px;
