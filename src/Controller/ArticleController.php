@@ -71,11 +71,18 @@ final class ArticleController extends AbstractController
     #[Route('/{id}', name: 'app_article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($article);
-            $entityManager->flush();
+        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+            try {
+                $titre = $article->getTitre();
+                $entityManager->remove($article);
+                $entityManager->flush();
+                $this->addFlash('success', sprintf('L\'article "%s" a été supprimé avec succès.', $titre));
+            } catch (\Exception $e) {
+                $this->addFlash('error', sprintf('Une erreur est survenue lors de la suppression de l\'article "%s".', $article->getTitre()));
+            }
+        } else {
+            $this->addFlash('error', 'Action non autorisée.');
         }
-
         return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
     }
 }
