@@ -1,23 +1,41 @@
-{{ form_start(form) }}
-    {{ form_errors(form) }}
-    
-    <div>
-        {{ form_label(form.title) }}
-        {{ form_widget(form.title) }}
-        {{ form_errors(form.title) }}
-    </div>
+<div class="d-flex justify-content-center">
+    <div class="card shadow-lg p-4 w-50 rounded">
+        <div class="card-body w-100 ">
+            <h2 class="card-title text-center mb-4 h2  text-primary">Créer ou modifier un lien</h2>
 
-    <div>
-        {{ form_label(form.url) }}
-        {{ form_widget(form.url) }}
-        {{ form_errors(form.url) }}
-    </div>
+            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
 
-    <div>
-        {{ form_label(form.description) }}
-        {{ form_widget(form.description) }}
-        {{ form_errors(form.description) }}
-    </div>
+            <div class="mt-5 h5 text-primary w-auto">
+                {{ form_label(form.title, 'Titre', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-pencil"></i></span>
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le titre'}}) }}
+                </div>
+                <div class="text-danger mt-1">{{ form_errors(form.title) }}</div>
+            </div>
 
-    <button class="btn btn-dark" type="submit">{{ button_label|default('Sauvegarder') }}</button>
-{{ form_end(form) }}
+            <div class="my-5 h5 text-primary w-auto">
+                {{ form_label(form.url, 'URL', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+                    {{ form_widget(form.url, {'attr': {'class': 'form-control', 'placeholder': 'Entrez l\'URL'}}) }}
+                </div>
+                <div class="text-danger mt-1">{{ form_errors(form.url) }}</div>
+            </div>
+
+            <div class="mb-4 h5 text-primary w-auto">
+                {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': '4', 'placeholder': 'Ajoutez une description (optionnel)'}}) }}
+                <div class="text-danger mt-1">{{ form_errors(form.description) }}</div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary rounded w-auto mt-3 p-2">
+                    <i class="bi bi-save"></i> {{ button_label|default('Sauvegarder') }}
+                </button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
