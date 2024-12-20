@@ -54,5 +54,32 @@
 		</tbody>
 	</table>
 
+    <nav aria-label="Article pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {{ currentPage == 1 ? 'disabled' }}">
+                <a class="page-link" href="{{ path('app_article_index', {page: currentPage - 1}) }}" {{ currentPage == 1 ? 'tabindex="-1" aria-disabled="true"' }}>
+                    &lt;
+                </a>
+            </li>
+
+            {% for page in 1..totalPages %}
+                <li class="page-item {{ page == currentPage ? 'active' }}">
+                    <a class="page-link" href="{{ path('app_article_index', {page: page}) }}">
+                        {{ page }}
+                        {% if page == currentPage %}
+                            <span class="visually-hidden">(current)</span>
+                        {% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+
+            <li class="page-item {{ currentPage == totalPages ? 'disabled' }}">
+                <a class="page-link" href="{{ path('app_article_index', {page: currentPage + 1}) }}" {{ currentPage == totalPages ? 'tabindex="-1" aria-disabled="true"' }}>
+                    &gt;
+                </a>
+            </li>
+        </ul>
+    </nav>
+
 	<a href="{{ path('app_article_new') }}">Create new</a>
 {% endblock %}
