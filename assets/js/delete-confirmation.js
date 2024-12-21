@@ -6,8 +6,16 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             
             const articleTitle = this.getAttribute('data-article-title');
+            const linkTitle = this.getAttribute('data-link-title');
             
-            if (confirm(`Êtes-vous sûr de vouloir supprimer l'article "${articleTitle}" ?`)) {
+            let confirmMessage;
+            if (articleTitle) {
+                confirmMessage = `Êtes-vous sûr de vouloir supprimer l'article "${articleTitle}" ?`;
+            } else if (linkTitle) {
+                confirmMessage = `Êtes-vous sûr de vouloir supprimer le lien "${linkTitle}" ?`;
+            }
+            
+            if (confirmMessage && confirm(confirmMessage)) {
                 this.submit();
             }
         });
