@@ -3,32 +3,36 @@
 {% block title %}Link{% endblock %}
 
 {% block body %}
-    <h1>Link</h1>
+    <h1 class="h1 text-center my-5">Détails du lien</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ link.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ link.title }}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ link.url }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ link.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="card shadow-lg mb-4 w-75 mx-auto">
+        <div class="card-body w-75 mx-auto">
+            <h2 class="card-title text-center alert-warning my-3">Informations du lien</h2>
+            <div class="mx-4 mb-2">
+                <p class="card-text fs-2 text-capitalize"><strong class="text-dark" >Titre :</strong> {{ link.title }}</p>
+                <p class="card-text fs-5"><strong class="text-dark" >URL :</strong> <a href="{{ link.url }}" target="_blank">{{ link.url }}</a></p>
+                <p class="card-text fs-5"><strong class="text-dark" >ID :</strong> {{ link.id }}</p>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <span class="fs-3 fw-bold" >Description</span>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body fs-4 fst-italic">"{{ link.description }}"</div>
+                    </div>
+                </div>
 
-    <a href="{{ path('app_link_index') }}">back to list</a>
+        </div>
+    </div>
 
-    <a href="{{ path('app_link_edit', {'id': link.id}) }}">edit</a>
+    <div class="d-flex justify-content-center my-5">
+        <a class="btn btn-dark rounded mx-3" href="{{ path('app_link_index') }}">Retour à la liste</a>
+        <a class="btn btn-primary rounded mx-3" href="{{ path('app_link_edit', {'id': link.id}) }}">Éditer</a>
+        {{ include('link/_delete_form.html.twig', { 'class': 'mx-3' }) }}
+    </div>
+    </div>
 
-    {{ include('link/_delete_form.html.twig') }}
 {% endblock %}

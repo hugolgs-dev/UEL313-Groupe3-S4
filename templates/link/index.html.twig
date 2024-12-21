@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Link index{% endblock %}
+{% block title %}Liens{% endblock %}
 
 {% block body %}
-    <h1>Link index</h1>
+    <h1>Liens</h1>
 
     {% for label, messages in app.flashes %}
         {% for message in messages %}
@@ -13,52 +13,64 @@
         {% endfor %}
     {% endfor %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Url</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for link in links %}
-            <tr>
-                <td>{{ link.id }}</td>
-                <td>{{ link.title }}</td>
-                <td>{{ link.url }}</td>
-                <td>{{ link.description }}</td>
-                <td>
-                    <a href="{{ path('app_link_show', {'id': link.id}) }}">
-                        Afficher
-                    </a>
-                    <a href="{{ path('app_link_edit', {'id': link.id}) }}">
-                        Editer
-                    </a>
-                    <form action="{{ path('app_link_delete', {'id': link.id}) }}"
-                        method="post"
-                        class="delete-form"
-                        data-link-title="{{ link.title }}"
-                        style="display: inline;">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ link.id) }}">
-                        <input type="hidden" name="link_title" value="{{ link.title }}">
-                        <button type="submit" class="delete-button" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
-                            Supprimer
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5"> 
-                    Pas de lien trouvé
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="tab-content shadow">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-sm">
+                <thead class="text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>URL</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for link in links %}
+                    <tr>
+                        <td class="text-center align-middle p-3">{{ link.id }}</td>
+                        <td class="text-center align-middle p-3 text-capitalize">{{ link.title }}</td>
+                        <td class="text-center align-middle p-3">{{ link.url }}</td>
+                        <td class="text-center p-3">{{ link.description }}</td>
+                        <td class="align-middle align-items-center pt-2">
+                            <a class="btn btn-dark rounded m-2" href="{{ path('app_link_show', {'id': link.id}) }}" title="Afficher">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-display" viewBox="0 0 16 16">
+                                    <path d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4q0 1 .25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75Q6 13 6 12H2s-2 0-2-2zm1.398-.855a.76.76 0 0 0-.254.302A1.5 1.5 0 0 0 1 4.01V10c0 .325.078.502.145.602q.105.156.302.254a1.5 1.5 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.76.76 0 0 0 .254-.302 1.5 1.5 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.76.76 0 0 0-.302-.254A1.5 1.5 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145"></path>
+                                </svg>
+                            </a>
+                            <a class="btn btn-primary rounded m-2" href="{{ path('app_link_edit', {'id': link.id}) }}" title="Éditer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
+                                </svg>
+                            </a>
+                            <form action="{{ path('app_link_delete', {'id': link.id}) }}"
+                                method="post"
+                                class="delete-form d-inline"
+                                data-link-title="{{ link.title }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ link.id) }}">
+                                <input type="hidden" name="link_title" value="{{ link.title }}">
+                                <button type="submit" class="btn btn-danger rounded m-2" title="Supprimer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            Pas de lien trouvé
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <nav aria-label="Link pagination">
         <ul class="pagination justify-content-center">
             <li class="page-item {{ currentPage == 1 ? 'disabled' }}">
@@ -86,7 +98,9 @@
         </ul>
     </nav>
 
-    <a href="{{ path('app_link_new') }}">
-        Ajouter un lien
-    </a>
+    <div class="d-flex justify-content-center mt-5">
+        <a class="btn btn-success rounded" href="{{ path('app_link_new') }}">
+            Ajouter un lien
+        </a>
+    </div>
 {% endblock %}

@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './bootstrap.js';
 import './js/delete-confirmation.js';
 /*

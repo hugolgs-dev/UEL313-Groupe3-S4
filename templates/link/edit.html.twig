@@ -3,15 +3,23 @@
 {% block title %}Modifier un lien{% endblock %}
 
 {% block body %}
-    <h1>
+    <h1 class="h1 text-center my-5">
         Modifier un lien
     </h1>
 
+
+
     {{ include('link/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_link_index') }}">
-        Retour à la liste
-    </a>
 
-    {{ include('link/_delete_form.html.twig') }}
+
+    <div class="d-flex justify-content-center mt-4">
+        <a class="btn btn-dark rounded" href="{{ path('app_link_index') }}">
+            Retour à la liste
+        </a>
+
+        {{ include('link/_delete_form.html.twig') }}
+    </div>
+
+
 {% endblock %}
