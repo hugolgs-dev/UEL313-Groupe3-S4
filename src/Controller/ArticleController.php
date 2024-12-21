@@ -10,15 +10,36 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 #[Route('/article')]
 final class ArticleController extends AbstractController
 {
     #[Route(name: 'app_article_index', methods: ['GET'])]
-    public function index(ArticleRepository $articleRepository): Response
+    public function index(Request $request, ArticleRepository $articleRepository): Response
     {
+        $page = $request->query->getInt('page', 1);
+        $limit = 10;
+
+        $query = $articleRepository->createQueryBuilder('a')
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        $paginator = new Paginator($query);
+        $totalItems = count($paginator);
+        $totalPages = max(ceil($totalItems / $limit), 1);
+
+        if ($page > $totalPages) {
+            return $this->redirectToRoute('app_article_index', ['page' => 1]);
+        }
+
         return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findAll(),
+            'articles' => $paginator,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'limit' => $limit,
         ]);
     }
 
